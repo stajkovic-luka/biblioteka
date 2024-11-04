@@ -41,7 +41,7 @@ public class ModelTabeleKnjige extends AbstractTableModel {
                 return knjiga.getNaslov();
                 
             case 1:
-                return knjiga.getAutor().getIme() + knjiga.getAutor().getPrezime();
+                return knjiga.getAutor().getIme() + " " +knjiga.getAutor().getPrezime();
             case 2:
                 return knjiga.getISBN();
             case 3:
@@ -59,6 +59,10 @@ public class ModelTabeleKnjige extends AbstractTableModel {
 
     void osveziPodatke() {
         fireTableDataChanged();
+    }
+
+    public List<Knjiga> getListaKnjiga() {
+        return listaKnjiga;
     }
     
     

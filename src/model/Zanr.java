@@ -16,5 +16,7 @@ public enum Zanr {
     UMETNOST, 
     STRUCNA_KNJIGA,
     DOMACI,
-    TRILER;
+    TRILER,
+    Novel,
+    Tragedy;
 }
