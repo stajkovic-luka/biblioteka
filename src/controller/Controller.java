@@ -7,8 +7,10 @@ package controller;
 import baza.DBBroker;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import model.Autor;
 import model.Knjiga;
+import model.User;
 import model.Zanr;
 
 /**
@@ -19,8 +21,17 @@ public class Controller {
     private DBBroker dbb;
     
 //  Liste za rad u lokalnoj memoriji
-    private List<Knjiga> listaKnjiga;
-    private List<Autor> listaAutora;
+    private List<Knjiga> listaKnjiga = new ArrayList<>();
+    private List<Autor> listaAutora = new ArrayList<>();
+
+    public List<User> getListaUsera() {
+        return listaUsera;
+    }
+
+    public void setListaUsera(List<User> listaUsera) {
+        this.listaUsera = listaUsera;
+    }
+    private List<User> listaUsera = new ArrayList<>();
        
     // Lazy Singleton
     private static Controller instance;
@@ -34,7 +45,14 @@ public class Controller {
     private Controller() {
         dbb = new DBBroker();
         
+        User u1 = new User(1, "admin", "admin");
+        User u2 = new User(2, "stajkovic", "luka123");
+        User u3 = new User(1, "vb", "vbanja");
         
+        listaUsera.add(u1);
+        listaUsera.add(u2);
+        listaUsera.add(u3);
+
         
         
         //RAD U LOKALNOJ MEMORIJI
@@ -115,6 +133,67 @@ public class Controller {
     public void azurirajKnjigu(Knjiga knjigaZaIzmenu) {
         dbb.azurirajKnjigu(knjigaZaIzmenu);
     }
+
+    public Boolean login1(String username, String password) {
+        for (User u : listaUsera) {
+            if (u.getUsername().equals(username) && u.getPassword().equals(password)) {
+                return true;
+            }
+        }
+        
+        
+        return false;
+    }
+
+    public Boolean login2(String username, String password) {
+        return dbb.login(username,password);
+    }
+
+    public List<Knjiga> filtriraj(String autor, String naziv) {
+        // PROVERI: Klik na filter dugme ne filtrira tabelu kao sto bi trebalo
+        
+          //Opcija 1 -> previse komplikovano u koliko treba vise kriterijuma za filtriranje
+        List<Knjiga> rezultat = new ArrayList<>();
+        if (autor != null && naziv == null) {
+            for (Knjiga k : listaKnjiga) {
+                String autorKnjige = k.getAutor().getIme() + " " + k.getAutor().getPrezime();
+                if (autorKnjige.contains(autor)) {
+                    rezultat.add(k);
+                }
+            }
+        }
+        
+        if (naziv!=null && autor==null) {
+            for (Knjiga k : listaKnjiga) {
+                String autorKnjige = k.getAutor().getIme() + " " + k.getAutor().getPrezime();
+                if (k.getNaslov().contains(naziv)) {
+                    rezultat.add(k);
+                }
+            }
+        }
+        
+        if (naziv!=null && autor!=null) {
+            for (Knjiga k : listaKnjiga) {
+                String autorKnjige = k.getAutor().getIme() + " " + k.getAutor().getPrezime();
+                if (autorKnjige.contains(autor) && k.getNaslov().contains(naziv)) {
+                    rezultat.add(k);
+                }
+            }
+        }
+        
+//        List<Knjiga> rezultat = new ArrayList<>();
+//        rezultat = listaKnjiga.stream().filter(k-> (naziv!=null && k.getNaslov().contains(naziv)) && (autor!=null && ((k.getAutor().getIme() + " " + k.getAutor().getPrezime()).contains(autor)))
+//        
+//        
+//        ).collect(Collectors.toList());
+        
+        
+        
+        
+        return rezultat;
+        
+    }
+    
     
     
 };

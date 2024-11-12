@@ -198,6 +198,10 @@ public class FormaKnjiga extends javax.swing.JDialog {
 
     private void jButtonDodajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDodajActionPerformed
         String naziv = jTextFieldNaziv.getText();
+        if (naziv == null || naziv.isEmpty() || naziv.trim().length()<3) {
+            JOptionPane.showMessageDialog(this, "Naziv mora biti duzi od 3 karaktera!", "Greska!", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         String isbn = jTextFieldISBN.getText();
         int godinaIzdanja;
         try{
