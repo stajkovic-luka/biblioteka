@@ -28,7 +28,10 @@ public class DBBroker {
             ResultSet rs = st.executeQuery(upit);
             
             
-            while (rs.next()) {                
+            while (rs.next()) {             
+                // PROMENI:
+                // GRESKA PRI UCITAVANJU ISBN-A UNUTAR JTABLE
+                // UCITA ISBN, ALI NE PRIKAZE
                 int id = rs.getInt("k.id");
                 String naslov = rs.getString("k.naslov");
                 int godinaIzdanja = rs.getInt("k.godinaIzdanja");
@@ -87,6 +90,54 @@ public class DBBroker {
             ps.setInt(1, id);
             ps.executeUpdate();
             Konekcija.getInstance().getConnection().commit();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBBroker.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void dodajKnjigu(Knjiga novaKnjiga) {
+        try {
+            // PROMENI:
+            // IMPLEMENTIRATI DODAVANJE VISE KNJIGA, TRENUTNO se id postavlja na 0,
+            // ne moze se dodati vise od jednom
+            String upit = "INSERT INTO knjiga (id, naslov, autorId, godinaIzdanja, isbn, zanr) "
+                + "VALUES (?,?,?,?,?,?)";
+            PreparedStatement ps = Konekcija.getInstance().getConnection().prepareStatement(upit);
+            ps.setInt(1, novaKnjiga.getId());
+            ps.setString(2, novaKnjiga.getNaslov());
+            ps.setInt(3, novaKnjiga.getAutor().getId());
+            ps.setString(5, novaKnjiga.getISBN());
+            ps.setInt(4, novaKnjiga.getGodinaIzdanja());
+            ps.setString(6, String.valueOf(novaKnjiga.getZanr()));
+            
+            ps.executeUpdate();
+            Konekcija.getInstance().getConnection().commit();
+            System.out.println("Uspesno dodato!");
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(DBBroker.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }
+
+    public void azurirajKnjigu(Knjiga knjigaZaIzmenu) {
+        try {
+            
+            String upit = "UPDATE knjiga "
+                    + "SET naslov=?, autorId=?, godinaIzdanja=?, zanr=? "
+                    + "WHERE id=?";
+            PreparedStatement ps = Konekcija.getInstance().getConnection().prepareStatement(upit);
+            ps.setInt(5, knjigaZaIzmenu.getId());
+            ps.setString(1, knjigaZaIzmenu.getNaslov());
+            ps.setInt(2, knjigaZaIzmenu.getAutor().getId());
+            ps.setInt(3, knjigaZaIzmenu.getGodinaIzdanja());
+            ps.setString(4, String.valueOf(knjigaZaIzmenu.getZanr()));
+            
+            ps.executeUpdate();
+            Konekcija.getInstance().getConnection().commit();
+            System.out.println("Uspesno azurirano!");
+            
         } catch (SQLException ex) {
             Logger.getLogger(DBBroker.class.getName()).log(Level.SEVERE, null, ex);
         }

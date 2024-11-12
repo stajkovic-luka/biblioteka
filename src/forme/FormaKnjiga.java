@@ -243,6 +243,7 @@ public class FormaKnjiga extends javax.swing.JDialog {
         knjigaZaIzmenu.setZanr(zanr);
 
         
+        kontroler.azurirajKnjigu(knjigaZaIzmenu);
         glavForm.osveziTabelu();
         JOptionPane.showMessageDialog(this, "Knjiga je uspesno izmenjena!", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
         this.dispose();

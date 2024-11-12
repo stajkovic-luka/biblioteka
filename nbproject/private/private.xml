@@ -5,10 +5,12 @@
         <group>
             <file>file:/D:/Java-Projekti/ProjSoft/Biblioteka/src/model/Knjiga.java</file>
             <file>file:/D:/Java-Projekti/ProjSoft/Biblioteka/src/model/Zanr.java</file>
+            <file>file:/D:/Java-Projekti/ProjSoft/Biblioteka/src/baza/DBBroker.java</file>
             <file>file:/D:/Java-Projekti/ProjSoft/Biblioteka/src/forme/GlavnaForma.java</file>
             <file>file:/D:/Java-Projekti/ProjSoft/Biblioteka/src/forme/FormaKnjiga.java</file>
             <file>file:/D:/Java-Projekti/ProjSoft/Biblioteka/src/model/Autor.java</file>
             <file>file:/D:/Java-Projekti/ProjSoft/Biblioteka/src/forme/ModelTabeleKnjige.java</file>
+            <file>file:/D:/Java-Projekti/ProjSoft/Biblioteka/src/baza/Konekcija.java</file>
             <file>file:/D:/Java-Projekti/ProjSoft/Biblioteka/src/controller/Controller.java</file>
         </group>
     </open-files>

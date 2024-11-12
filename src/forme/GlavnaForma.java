@@ -237,7 +237,7 @@ public class GlavnaForma extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Morate selektovani knjigu za izmenu!", "Greska!", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        Knjiga selektovanaKnjiga = kontroler.getListaKnjiga().get(selektovaniRed);
+        Knjiga selektovanaKnjiga = kontroler.ucitaj().get(selektovaniRed);
         FormaKnjiga formaKnjiga = new FormaKnjiga(this, true, selektovanaKnjiga);
         formaKnjiga.setVisible(true);
         
@@ -296,8 +296,15 @@ public class GlavnaForma extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     void osveziTabelu() {
-        ModelTabeleKnjige modelTabele = (ModelTabeleKnjige) jTableKnjige.getModel();
-        modelTabele.osveziPodatke();
+        ModelTabeleKnjige modelTabele = new ModelTabeleKnjige(kontroler.ucitaj());
+        jTableKnjige.setModel(modelTabele);
+        
+        
+//        ModelTabeleKnjige modelTabele = (ModelTabeleKnjige) jTableKnjige.getModel();
+//        modelTabele.osveziPodatke();
+        
+        
+        
     }
     
 }

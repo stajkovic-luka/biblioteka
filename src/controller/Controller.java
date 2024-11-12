@@ -98,7 +98,9 @@ public class Controller {
     }
 
     public void dodajKnjigu(Knjiga novaKnjiga) {
-       listaKnjiga.add(novaKnjiga);
+        dbb.dodajKnjigu(novaKnjiga);
+        
+//       listaKnjiga.add(novaKnjiga);
     }
     
     // ucitava listu iz baze
@@ -108,6 +110,10 @@ public class Controller {
 
     public List<Autor> ucitajListuAutoraIzBaze() {
         return dbb.ucitajListuAutoraIzBaze();
+    }
+
+    public void azurirajKnjigu(Knjiga knjigaZaIzmenu) {
+        dbb.azurirajKnjigu(knjigaZaIzmenu);
     }
     
     
